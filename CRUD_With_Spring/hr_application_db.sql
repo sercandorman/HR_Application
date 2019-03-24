@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 24 Mar 2019, 21:09:29
+-- Üretim Zamanı: 24 Mar 2019, 21:33:08
 -- Sunucu sürümü: 5.6.12-log
 -- PHP Sürümü: 5.4.12
 
@@ -51,28 +51,6 @@ INSERT INTO `applications` (`ID`, `Name`, `EMail`, `Phone`, `Address`, `Thoughts
 -- --------------------------------------------------------
 
 --
--- Tablo için tablo yapısı `hr_manager`
---
-
-CREATE TABLE IF NOT EXISTS `hr_manager` (
-  `ID` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Username` varchar(12) COLLATE utf8mb4_turkish_ci NOT NULL,
-  `Password` varchar(8) COLLATE utf8mb4_turkish_ci NOT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Username` (`Username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci AUTO_INCREMENT=3 ;
-
---
--- Tablo döküm verisi `hr_manager`
---
-
-INSERT INTO `hr_manager` (`ID`, `Username`, `Password`) VALUES
-(1, 'kodgemisi', '111'),
-(2, 'kodgemisi2', '222');
-
--- --------------------------------------------------------
-
---
 -- Tablo için tablo yapısı `jobs`
 --
 
@@ -116,26 +94,6 @@ CREATE TABLE IF NOT EXISTS `lists` (
 INSERT INTO `lists` (`id`, `List_Name`) VALUES
 (7, 'Android'),
 (14, 'JAVA');
-
--- --------------------------------------------------------
-
---
--- Tablo için tablo yapısı `person`
---
-
-CREATE TABLE IF NOT EXISTS `person` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(255) COLLATE utf8mb4_turkish_ci NOT NULL,
-  `SURNAME` varchar(255) COLLATE utf8mb4_turkish_ci NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci AUTO_INCREMENT=21 ;
-
---
--- Tablo döküm verisi `person`
---
-
-INSERT INTO `person` (`ID`, `NAME`, `SURNAME`) VALUES
-(20, 'Bekir', 'Alçelik');
 
 -- --------------------------------------------------------
 
