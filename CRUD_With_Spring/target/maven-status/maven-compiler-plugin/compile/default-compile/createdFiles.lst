@@ -1,0 +1,13 @@
+com\crudwithspring\repository\JobsRepository.class
+com\crudwithspring\repository\ApplicationRepository.class
+com\crudwithspring\controller\MainController.class
+com\crudwithspring\model\Lists.class
+com\crudwithspring\service\JobsService.class
+com\crudwithspring\model\Applications.class
+com\crudwithspring\service\ApplicationService.class
+com\crudwithspring\security\SecurityConfiguration.class
+com\crudwithspring\CRUD_With_Spring_Application.class
+com\crudwithspring\service\ListsService.class
+com\crudwithspring\model\Jobs.class
+com\crudwithspring\repository\ListRepository.class
+com\crudwithspring\model\UserAndRole.class

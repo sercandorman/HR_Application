@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Homepage</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript"></script>
+<script src="/accordion.js"></script>
+<script src="/accordion2.js"></script>
+<script src="/postlist.js"></script>
+<script src="/postjob.js"></script>
+<script src="/details.js"></script>
+</head>
+
+<body>
+	<div class="container">
+
+		<!-- Baslik ve Hosgeldin Mesaji BASLANGIC | Title and Welcome Message Begin-->
+		<div class="row">
+			<blockquote>
+				<h3 class="title">Kod Gemisi HR Application</h3>
+			</blockquote>
+		</div>
+		<div class="row" id="navbar">
+			<!-- NAVBAR BASLANGIC -->
+			<div class="logout" onMouseOver="this.style.backgroundColor='#ddd'"
+				onMouseOut="this.style.backgroundColor='#f1f1f1'">
+				<button style="float: left" type="button"
+					class="btn btn-info btn-sm" id="buttonlists"
+					onclick="window.location.href='/homepage'">Lists</button>
+
+				<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+					<!-- ADMIN ISE GOSTER -->
+					<button style="float: left; margin-left: 20px;" type="button"
+						class="btn btn-info btn-sm"
+						onclick="window.location.href='/applications'">
+						Applications</button>
+				</div>
+
+				<div sec:authorize="!hasAuthority('ROLE_ADMIN')">
+					<!-- ADMIN DEGILSE GOSTER -->
+					<button style="float: right" type="button"
+						class="btn btn-danger btn-sm"
+						onclick="window.location.href='/login'">HR Login</button>
+				</div>
+				<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+					<!-- ADMIN ISE GOSTER -->
+					<button style="float: right" type="button"
+						class="btn btn-danger btn-sm"
+						onclick="window.location.href='/logout'">Logout</button>
+				</div>
+
+			</div>
+		</div>
+		<!-- NAVBAR BITIS -->
+
+		<!-- KAYIT EKLEME BASLANGIC | Add Record Begin-->
+		<div class="row" th:switch="${mod}">
+			<div th:case="VIEW_LISTS">
+				<div class="row addRecord">
+					<div class="col-md-12 col-xs-12"
+						sec:authorize="hasAuthority('ROLE_ADMIN')">
+						<!-- Sadece Admin'e gorunur | Visible only for Admin -->
+						<div class="accordion" style="width: 18%">
+							<div class="accordion-section">
+								<a class="accordion-section-title" href="#accordion-1">Create
+									New List</a>
+								<div id="accordion-1" class="accordion-section-content">
+									<form class="form-inline" id="createlistform" method="POST">
+										<div class="form-group">
+											<label for="name" style="margin-right: 5px">List Name
+												: </label> <input type="text" class="form-control" id="listname"
+												placeholder="Enter List Name" name="listname"
+												style="margin-right: 20px" />
+										</div>
+										<button type="submit" class="btn btn-primary btn-md">Create</button>
+									</form>
+								</div>
+								<!--end .accordion-section-content-->
+							</div>
+							<!--end .accordion-section-->
+						</div>
+						<!--end .accordion-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- KAYIT EKLEME BITIS | Add Record End-->
+
+		<!-- LISTE EKLEME BASLANGIC | Add List Begin-->
+		<div class="row" id="getResultDiv2" th:switch="${mod}">
+			<div th:case="VIEW_ONELIST">
+				<div class="row addRecord">
+					<div class="col-md-12 col-xs-12"
+						sec:authorize="hasAuthority('ROLE_ADMIN')">
+						<!-- Sadece Admin'e gorunur | Visible only for Admin -->
+						<div class="accordionn" style="width: 18%">
+							<div class="accordionn-section">
+								<a class="accordionn-section-title" href="#accordionn-1">Create
+									New Job</a>
+								<div id="accordionn-1" class="accordionn-section-content">
+									<form class="form-inline" id="createjobform">
+										<div class="form-group">
+											<input type="text" class="form-control" id="title"
+												placeholder="Enter Title" name="title"
+												style="margin-right: 16px" />
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" id="description"
+												placeholder="Enter Description" name="description"
+												style="margin-right: 16px" />
+										</div>
+										<div class="form-group">
+											<input type="number" class="form-control" id="nopth"
+												placeholder="Number Of People To Hire" name="nopth"
+												style="margin-right: 16px" />
+										</div>
+										<div class="form-group">
+											<input type="date" class="form-control" id="lastDate"
+												placeholder="Last Date" name="lastDate" title="Last Date"
+												style="margin-right: 16px" />
+										</div>
+										<div class="form-group">
+											<input type="text" readonly="readonly" class="form-control"
+												id="listid" placeholder="ID" name="listid"
+												title="ID of the list which associated"
+												style="margin-right: 16px" th:value="${findOneList.id}" />
+										</div>
+										<div class="form-group">
+											<span>COMING SOON...</span>
+											<!--<button type="submit" class="btn btn-primary btn-md">Create</button> -->
+										</div>
+
+									</form>
+								</div>
+								<!--end .accordion-section-content-->
+							</div>
+							<!--end .accordion-section-->
+						</div>
+						<!--end .accordion-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- LISTE EKLEME BITIS | Add List End-->
+
+		<div id="postResultDiv" style="width: 200px; margin-top: 10px">
+		</div>
+		<!-- KAYIT BASARILI ISE... | If adding is successful... -->
+
+		<div class="row" th:switch="${modd}">
+			<div th:case="VIEW_DETAIL">
+				<div id="postResultDiv2" style="width: 200px">
+					<span th:text="${#arrays.length(oneJobList2)}"></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" id="getResultDiv" th:switch="${mod}">
+			<div th:case="VIEW_LISTS">
+				<div class="row">
+					<table class="table table-hover col-md-12 col-xs-12" id="table"
+						style="width: auto">
+						<thead>
+							<tr>
+								<th>List ID</th>
+								<th>List Name</th>
+								<th sec:authorize="hasAuthority('ROLE_ADMIN')">&nbsp;&nbsp;Edit&nbsp;&nbsp;|&nbsp;&nbsp;Delete&nbsp;&nbsp;|&nbsp;&nbsp;Detail</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="result : ${allLists}">
+								<td><a th:href="@{'/oneList?id='+${result.id}}"
+									th:text="${result.id}" id="joblistid"></a></td>
+								<td><a th:href="@{'/oneList?id='+${result.id}}"
+									th:text="${result.listname}" style="color: #c80000"></a></td>
+								<td><div sec:authorize="hasAuthority('ROLE_ADMIN')">
+										<a th:href="@{'/editList?id='+${result.id}}"> <!-- Bootstap Edit İkonu -->
+											<span class="glyphicon glyphicon-edit" aria-hidden="true"
+											style="margin: 0.1em 0.9em"></span>
+										</a>|<a th:href="@{'/deleteList?id='+${result.id}}"
+											onclick="return confirm('Are you sure you want to delete it?')">
+											<!-- Bootstap Sil İkonu --> <span
+											class="glyphicon glyphicon-remove-circle" aria-hidden="true"
+											style="margin: 0.1em 1.3em"></span>
+										</a>|
+										<!-- Bootstap Detay İkonu -->
+										<span id="detail" class="glyphicon glyphicon-th-list"
+											aria-hidden="true" style="margin: 0.1em 1.1em"></span>
+
+									</div></td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div th:case="VIEW_APPLICATIONS">
+				<!-- VIEW JOBS -->
+				<div class="row">
+					<table class="table table-hover col-md-12 col-xs-12" id="table"
+						style="width: auto">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Applicant Name</th>
+								<th>Applicant Email</th>
+								<th>Applicant Phone</th>
+								<th>Applicant Address</th>
+								<th>Applicant Thoughts</th>
+								<th>Applicant Resume</th>
+								<th>Job ID</th>
+								<th>
+									<div sec:authorize="!hasAuthority('ROLE_ADMIN')">Apply</div>
+									<div sec:authorize="hasAuthority('ROLE_ADMIN')">Delete</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="result : ${allApplications}">
+								<td th:text="${result.id}"></td>
+								<td th:text="${result.name}"></td>
+								<td th:text="${result.email}"></td>
+								<td th:text="${result.phone}"></td>
+								<td th:text="${result.address}"></td>
+								<td th:text="${result.thoughts_on_job}"></td>
+								<td th:text="${result.resume}"></td>
+								<td th:text="${result.jobss.id}"></td>
+								<td>
+									<div sec:authorize="!hasAuthority('ROLE_ADMIN')">
+										<a th:href="@{'/apply?id='+${result.id}}"> <!-- Bootstap Detay İkonu -->
+											<span class="glyphicon glyphicon-check" aria-hidden="true"
+											style="margin: 0em 1em"> </span>
+										</a>
+									</div>
+									<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+										<a
+											th:href="@{/deleteJob/{id}/{id2}(id=${result.id}, id2=${result.lists.id})}"
+											onclick="return confirm('Are you sure you want to delete it?')">
+											<!-- Bootstap Sil İkonu --> <span
+											class="glyphicon glyphicon-remove-circle" aria-hidden="true"
+											style="margin: 0.2em 1.4em"> </span>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div th:case="VIEW_ONELIST">
+				<!-- VIEW JOBS -->
+				<div class="row">
+					<table class="table table-hover col-md-12 col-xs-12" id="table"
+						style="width: auto">
+						<thead>
+							<tr>
+								<th>Job ID</th>
+								<th>Job Title</th>
+								<th>Job Description</th>
+								<th>Number of People to Hire</th>
+								<th>Last Date</th>
+								<th>
+									<div sec:authorize="!hasAuthority('ROLE_ADMIN')">Apply</div>
+									<div sec:authorize="hasAuthority('ROLE_ADMIN')">Delete</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="result : ${oneJobList}">
+								<td th:text="${result.id}"></td>
+								<td th:text="${result.title}"></td>
+								<td th:text="${result.description}"></td>
+								<td th:text="${result.nopth}"></td>
+								<td th:text="${result.lastDate}"></td>
+								<td>
+									<div sec:authorize="!hasAuthority('ROLE_ADMIN')">
+										<a th:href="@{'/apply?id='+${result.id}}"> <!-- Bootstap Detay İkonu -->
+											<span class="glyphicon glyphicon-check" aria-hidden="true"
+											style="margin: 0em 1em"> </span>
+										</a>
+									</div>
+									<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+										<a
+											th:href="@{/deleteJob/{id}/{id2}(id=${result.id}, id2=${result.lists.id})}"
+											onclick="return confirm('Are you sure you want to delete it?')">
+											<!-- Bootstap Sil İkonu --> <span
+											class="glyphicon glyphicon-remove-circle" aria-hidden="true"
+											style="margin: 0.2em 1.4em"> </span>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div th:case="EDIT_LIST">
+				<!-- KAYITLARI DUZENLE BASLANGIC | Edit Records Begin-->
+				<form class="form-horizontal" th:action="@{/updateList}">
+					<div class="form-group">
+						<label class="control-label col-sm-2">ID</label>
+						<div class="col-sm-10">
+							<input type="text" readonly="readonly" class="form-control"
+								th:value="${getOneList.id}" id="id" name="id" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">List Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control"
+								th:value="${getOneList.listname}" id="listname" name="listname" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+</body>
+</html>
